@@ -323,3 +323,51 @@ L.polygon([
   fillColor: "purple",
   fillOpacity: 0.75
 }).addTo(myMap);
+
+// Create a red circle over P&L
+L.circle([39.0989, -94.5824], {
+  color: "red",
+  fillColor: "red",
+  fillOpacity: 0.75,
+  radius: 500
+}).addTo(myMap);
+
+// Create a red circle over River Market
+L.circle([39.1101, -94.5818], {
+  color: "red",
+  fillColor: "red",
+  fillOpacity: 0.75,
+  radius: 500
+}).addTo(myMap);
+
+// Create a red circle over Country Club Plaza
+L.circle([39.0418, -94.5916], {
+  color: "red",
+  fillColor: "red",
+  fillOpacity: 0.75,
+  radius: 500
+}).addTo(myMap);
+
+// Create a red circle over Zona Rosa
+L.circle([39.2505, -94.6634], {
+  color: "red",
+  fillColor: "red",
+  fillOpacity: 0.75,
+  radius: 500
+}).addTo(myMap);
+
+// Create a red circle over Crossroads
+L.circle([39.0930, -94.5857], {
+  color: "red",
+  fillColor: "red",
+  fillOpacity: 0.75,
+  radius: 500
+}).addTo(myMap);
+
+// Create a red circle over Westport
+L.circle([39.0587, -94.5986], {
+  color: "red",
+  fillColor: "red",
+  fillOpacity: 0.75,
+  radius: 500
+}).addTo(myMap);
