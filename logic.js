@@ -291,6 +291,10 @@ var mainAttractions = [
     location: [39.1082, -94.5904],
     name: "Escape Room Kansas City",
   },
+  {
+    location: [39.0853, -94.5856],
+    name: "Union Station",
+  },
 ];
 
 for (var i = 0; i < mainAttractions.length; i++) {
@@ -299,3 +303,23 @@ for (var i = 0; i < mainAttractions.length; i++) {
     .bindPopup(attractions.name)
     .addTo(myMap);
 };
+
+
+// Connect a purple polygon from one end of street car route to other
+L.polygon([
+  [39.084143, -94.58388],
+  [39.105393, -94.582982],
+  [39.105430, -94.581680],
+  [39.107330, -94.581338],
+  [39.108521,-94.581658],
+  [39.108773,-94.580468],
+  [39.110330,-94.581004],
+  [39.109615,-94.584592],
+  [39.107970,-94.584102],
+  [39.102241,-94.583200],
+  [39.084158,-94.584441]
+], {
+  color: "purple",
+  fillColor: "purple",
+  fillOpacity: 0.75
+}).addTo(myMap);
