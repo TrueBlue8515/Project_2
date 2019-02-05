@@ -1,19 +1,5 @@
-// Create a map object
-var myMap = L.map("map", {
-  center: [39.0997, -94.58],
-  zoom: 12
-});
-
-// Add a tile layer
-L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
-  id: "mapbox.streets",
-  accessToken: API_KEY
-}).addTo(myMap);
-
 // An array containing each bus stop location & name
-var busStops = [{
+var buses = [{
   location: [39.101832, -94.583153],
   name: "10th & Main",
 },
@@ -179,18 +165,17 @@ var busStops = [{
 }
 ];
 
-//HELP!!!!!!! creating a unique marker
+var busStops = [];
 
 // Loop through the bust stops array and create one marker for each stop, bind a popup containing its name and add it to the map
-for (var i = 0; i < busStops.length; i++) {
-  var stops = busStops[i];
-  L.marker(stops.location)
-    .bindPopup(stops.name)
-    .addTo(myMap);
-};
+for (var i = 0; i < buses.length; i++) {
+   busStops.push(
+  L.marker(buses[i].location).bindPopup("<h1>" + buses[i].name +"<h1>")
+   );
+}
 
 // An array containing top 25 attractions location & name
-var mainAttractions = [
+var attractions = [
   {
   location: [39.0809, -94.5860],
   name: "WWI Museum",
@@ -297,13 +282,61 @@ var mainAttractions = [
   },
 ];
 
-for (var i = 0; i < mainAttractions.length; i++) {
-  var attractions = mainAttractions[i];
-  L.marker(attractions.location)
-    .bindPopup(attractions.name)
-    .addTo(myMap);
+//create empty array for main attractions
+
+var mainAttractions = [];
+
+// Loop through the main attraction array and create one marker for each stop, bind a popup containing its name and add it to the map
+for (var i = 0; i < attractions.length; i++) {
+   mainAttractions.push(
+  L.marker(attractions[i].location).bindPopup("<h1>" + attractions[i].name +"<h1>")
+   );
+}
+
+// Add all the bus markers to a new layer group.
+// Now we can handle them as one group instead of referencing each individually
+var busLayer = L.layerGroup(busStops);
+
+//same thing for main attractions
+var attractionsLayer = L.layerGroup(mainAttractions);
+
+// Define variables for our tile layers
+var street = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+  maxZoom: 18,
+  id: "mapbox.streets",
+  accessToken: API_KEY
+});
+
+
+var dark = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+  maxZoom: 18,
+  id: "mapbox.dark",
+  accessToken: API_KEY
+});
+
+// Only one base layer can be shown at a time
+var baseMaps = {
+  Street: street,
+  Dark: dark
 };
 
+// Overlays that may be toggled on or off
+var overlayMaps = {
+  Buses: busLayer,
+  Attractions: attractionsLayer
+};
+// Create a map object
+var myMap = L.map("map", {
+  center: [39.0997, -94.58],
+  zoom: 13,
+  layers: [street, busLayer]
+});
+
+// Pass our map layers into our layer control
+// Add the layer control to the map
+L.control.layers(baseMaps, overlayMaps).addTo(myMap);
 
 // Connect a purple polygon from one end of street car route to other
 L.polygon([
@@ -371,45 +404,3 @@ L.circle([39.0587, -94.5986], {
   fillOpacity: 0.75,
   radius: 500
 }).addTo(myMap);
-
-
-// Add all the cityMarkers to a new layer group.
-// Now we can handle them as one group instead of referencing each individually
-var busLayer = L.layerGroup(busStops);
-
-// Define variables for our tile layers
-var light = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
-  id: "mapbox.light",
-  accessToken: API_KEY
-});
-
-var dark = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
-  id: "mapbox.dark",
-  accessToken: API_KEY
-});
-
-// Only one base layer can be shown at a time
-var baseMaps = {
-  Light: light,
-  Dark: dark
-};
-
-// Overlays that may be toggled on or off
-var overlayMaps = {
-  Buses: busLayer
-};
-
-// Create map object and set default layers
-var myMap = L.map("map", {
-  center: [46.2276, 2.2137],
-  zoom: 6,
-  layers: [light, busLayer]
-});
-
-// Pass our map layers into our layer control
-// Add the layer control to the map
-L.control.layers(baseMaps, overlayMaps).addTo(myMap);
