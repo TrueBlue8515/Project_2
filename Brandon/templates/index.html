@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Kansas City Data</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1>Kansas City Data</h1>
+            <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape new Kansas City Data</a></p>
+        </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ kc.city }} Stats:</h2>                
+                <p>{{ kc.population }}</p>
+                <p>{{ kc.costOfLiving }}</p>
+                <p>{{ kc.nickNames }} BBQ Capital of the World, City of Fountains, Cowtown, Jazz Capital of the World, K.C, KCMO, Paris of the Plains</p>
+                <strong><a href="http://www.city-data.com/city/Kansas-City-Missouri.html">Sourced from: city-data.com</a></strong>
+                                    
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row weather-box">
+          <div class="col-md-12">
+            <h3>Current KC Tweets:</h3>
+            <p> {{ kc.kcTweets }}</p>
+            <strong><a href="https://twitter.com/KCMO">Sourced from: Twitter</a></strong>
+          </div>
+        </div>
+
+        <h3>KC Attractions</h3>
+        <h4><strong><a href="https://www.theworldwar.org/">National WWI Museum</a></strong></h4>
+        <h4><strong><a href="http://www.nlbm.com/">The Negro Leagues Baseball Museum</a></strong></h4>
+        <h4><strong><a href="https://americanjazzmuseum.org/">American Jazz Museum</a></strong></h4>
+        <h4><strong><a href="http://1856.com/">The Arabia Steamboat Museum </a></strong></h4>
+        <h4><strong><a href="https://www.worldsoffun.com/">Worlds of Fun</a></strong></h4>
+           
+    </div>
+
+
+    
+</div>
+
+
+</body>
