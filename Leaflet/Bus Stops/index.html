@@ -15,10 +15,12 @@
                 layers: L.mapquest.tileLayer('map'),
                 zoom: 12
             });
+            
 
             $.get('https://data.kcmo.org/resource/hgki-hher.geojson', function (data) {
                 L.geoJSON(data).addTo(map);
             });
+            
         };
     </script>
 </head>
